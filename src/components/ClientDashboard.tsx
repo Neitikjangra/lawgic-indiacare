@@ -77,10 +77,11 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
         .from('professional_profiles')
         .select(`
           *,
-          profiles (
+          profiles!professional_profiles_user_id_fkey (
             full_name,
             email,
-            location
+            location,
+            role
           )
         `)
         .eq('is_published', true);
@@ -89,6 +90,33 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
       setProfessionals(data || []);
     } catch (error) {
       console.error('Error fetching professionals:', error);
+    }
+  };
+
+  const handleBookConsultation = async (professional: any) => {
+    try {
+      const consultationData = {
+        title: `Consultation with ${professional.profiles.full_name}`,
+        description: `${professional.practice_area} consultation`,
+        client_id: user.id,
+        professional_id: professional.user_id,
+        professional_profile_id: professional.id,
+        amount: professional.hourly_rate,
+        duration_minutes: 15,
+        scheduled_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Default to tomorrow
+        status: 'pending'
+      };
+
+      const { error } = await supabase
+        .from('consultations')
+        .insert([consultationData]);
+
+      if (error) throw error;
+
+      alert('Consultation booked successfully! The professional will be notified.');
+    } catch (error) {
+      console.error('Error booking consultation:', error);
+      alert('Failed to book consultation. Please try again.');
     }
   };
 
@@ -475,7 +503,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
                           </p>
                           <div className="flex items-center gap-2 mt-2">
                             <Badge variant="secondary">
-                              {professional.profiles?.profiles?.role === 'ca' ? 'Chartered Accountant' : 'Lawyer'}
+                              {professional.profiles?.role === 'ca' ? 'Chartered Accountant' : 'Lawyer'}
                             </Badge>
                             {professional.is_verified && (
                               <Badge variant="default">Verified</Badge>
@@ -497,7 +525,11 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
                           </p>
                         )}
                         
-                        <Button className="w-full" variant="outline">
+                        <Button 
+                          className="w-full" 
+                          variant="outline"
+                          onClick={() => handleBookConsultation(professional)}
+                        >
                           Book Consultation
                         </Button>
                       </div>
