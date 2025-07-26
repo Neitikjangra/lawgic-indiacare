@@ -83,8 +83,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
             location
           )
         `)
-        .eq('is_published', true)
-        .eq('is_verified', true);
+        .eq('is_published', true);
 
       if (error) throw error;
       setProfessionals(data || []);
