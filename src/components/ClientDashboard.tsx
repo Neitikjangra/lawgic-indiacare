@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import DeadlineTracker from './DeadlineTracker';
 import { 
   Bot, 
   Calendar, 
@@ -421,61 +422,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
         )}
 
         {activeTab === 'deadlines' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-bold">Compliance Deadlines</h3>
-              <Button onClick={addSampleDeadlines} variant="outline">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Sample Deadlines
-              </Button>
-            </div>
-
-            {deadlines.length === 0 ? (
-              <Card className="p-12 text-center">
-                <Calendar className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                <h3 className="text-lg font-medium mb-2">No deadlines yet</h3>
-                <p className="text-muted-foreground mb-4">
-                  Get started by adding some common compliance deadlines
-                </p>
-                <Button onClick={addSampleDeadlines}>
-                  Add Sample Deadlines
-                </Button>
-              </Card>
-            ) : (
-              <div className="grid gap-4">
-                {deadlines.map((deadline) => (
-                  <Card key={deadline.id}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h4 className="font-medium">{deadline.title}</h4>
-                            <Badge variant={deadline.is_completed ? "default" : "secondary"}>
-                              {deadline.category}
-                            </Badge>
-                            {!deadline.is_completed && new Date(deadline.due_date) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) && (
-                              <Badge variant="destructive">
-                                <AlertTriangle className="w-3 h-3 mr-1" />
-                                Due Soon
-                              </Badge>
-                            )}
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-2">{deadline.description}</p>
-                          <div className="flex items-center gap-2 text-sm">
-                            <Clock className="w-4 h-4" />
-                            <span>Due: {new Date(deadline.due_date).toLocaleDateString()}</span>
-                          </div>
-                        </div>
-                        {deadline.is_completed && (
-                          <CheckCircle className="w-5 h-5 text-success" />
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </div>
+          <DeadlineTracker user={user} profile={profile} />
         )}
 
         {activeTab === 'experts' && (
