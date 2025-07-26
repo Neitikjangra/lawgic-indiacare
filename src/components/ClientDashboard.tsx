@@ -77,7 +77,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ user, profile, onLogo
         .from('professional_profiles')
         .select(`
           *,
-          profiles!professional_profiles_user_id_fkey (
+          profiles (
             full_name,
             email,
             location,
