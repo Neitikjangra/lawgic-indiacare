@@ -2,86 +2,53 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Scale, 
-  Bot, 
-  Calendar, 
-  Users, 
-  Shield, 
-  Zap, 
-  CheckCircle,
-  ArrowRight,
-  Briefcase,
-  Building,
-  UserCheck,
-  Calculator,
-  Gavel
-} from 'lucide-react';
+import { Scale, Bot, Calendar, Users, Shield, Zap, CheckCircle, ArrowRight, Briefcase, Building, UserCheck, Calculator, Gavel } from 'lucide-react';
 import lawgicLogo from '@/assets/lawgic-logo.png';
 import heroDashboard from '@/assets/hero-dashboard.png';
-
 interface LandingPageProps {
   onLogin: () => void;
   onSignup: () => void;
 }
-
-const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
-  const features = [
-    {
-      icon: <Bot className="w-8 h-8" />,
-      title: "AI Legal Assistant",
-      description: "Get instant answers to complex Indian laws and compliance questions in plain English/Hindi"
-    },
-    {
-      icon: <Calendar className="w-8 h-8" />,
-      title: "Smart Deadline Tracker",
-      description: "Never miss GST returns, ITR filing, or MCA compliance deadlines with automated reminders"
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: "Expert Connect",
-      description: "Connect with verified CAs and Lawyers for professional consultation when you need expert advice"
-    }
-  ];
-
-  const targetAudience = [
-    {
-      icon: <Briefcase className="w-6 h-6" />,
-      title: "Freelancers",
-      description: "Manage contracts, tax compliance, and legal requirements"
-    },
-    {
-      icon: <Building className="w-6 h-6" />,
-      title: "Startups",
-      description: "Navigate incorporation, compliance, and growth regulations"
-    },
-    {
-      icon: <UserCheck className="w-6 h-6" />,
-      title: "Small Businesses",
-      description: "Stay compliant with licensing, taxation, and operational laws"
-    },
-    {
-      icon: <Calculator className="w-6 h-6" />,
-      title: "Chartered Accountants",
-      description: "Expand your practice and connect with potential clients"
-    },
-    {
-      icon: <Gavel className="w-6 h-6" />,
-      title: "Lawyers",
-      description: "Build your client base and offer consultation services"
-    }
-  ];
-
-  const benefits = [
-    "Simplifies complex legal jargon into actionable insights",
-    "Reduces compliance risks with automated deadline tracking",
-    "Saves time with AI-powered document analysis",
-    "Cost-effective alternative to expensive legal consultations",
-    "Always up-to-date with latest Indian law changes"
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+const LandingPage: React.FC<LandingPageProps> = ({
+  onLogin,
+  onSignup
+}) => {
+  const features = [{
+    icon: <Bot className="w-8 h-8" />,
+    title: "AI Legal Assistant",
+    description: "Get instant answers to complex Indian laws and compliance questions in plain English/Hindi"
+  }, {
+    icon: <Calendar className="w-8 h-8" />,
+    title: "Smart Deadline Tracker",
+    description: "Never miss GST returns, ITR filing, or MCA compliance deadlines with automated reminders"
+  }, {
+    icon: <Users className="w-8 h-8" />,
+    title: "Expert Connect",
+    description: "Connect with verified CAs and Lawyers for professional consultation when you need expert advice"
+  }];
+  const targetAudience = [{
+    icon: <Briefcase className="w-6 h-6" />,
+    title: "Freelancers",
+    description: "Manage contracts, tax compliance, and legal requirements"
+  }, {
+    icon: <Building className="w-6 h-6" />,
+    title: "Startups",
+    description: "Navigate incorporation, compliance, and growth regulations"
+  }, {
+    icon: <UserCheck className="w-6 h-6" />,
+    title: "Small Businesses",
+    description: "Stay compliant with licensing, taxation, and operational laws"
+  }, {
+    icon: <Calculator className="w-6 h-6" />,
+    title: "Chartered Accountants",
+    description: "Expand your practice and connect with potential clients"
+  }, {
+    icon: <Gavel className="w-6 h-6" />,
+    title: "Lawyers",
+    description: "Build your client base and offer consultation services"
+  }];
+  const benefits = ["Simplifies complex legal jargon into actionable insights", "Reduces compliance risks with automated deadline tracking", "Saves time with AI-powered document analysis", "Cost-effective alternative to expensive legal consultations", "Always up-to-date with latest Indian law changes"];
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border/50 backdrop-blur-sm bg-background/80 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -144,11 +111,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
 
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 blur-3xl animate-glow-pulse" />
-            <img 
-              src={heroDashboard} 
-              alt="Lawgic Dashboard" 
-              className="relative z-10 rounded-xl shadow-2xl border border-card-border"
-            />
+            <img src={heroDashboard} alt="Lawgic Dashboard" className="relative z-10 rounded-xl shadow-2xl border border-card-border" />
           </div>
         </div>
       </section>
@@ -167,8 +130,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="card-gradient group hover:shadow-xl transition-all duration-300">
+            {features.map((feature, index) => <Card key={index} className="card-gradient group hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                     {feature.icon}
@@ -176,8 +138,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
                   <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -193,8 +154,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {targetAudience.map((audience, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 group">
+            {targetAudience.map((audience, index) => <Card key={index} className="hover:shadow-lg transition-all duration-300 group">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -206,8 +166,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -224,12 +183,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
             </div>
 
             <div className="grid gap-4">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm">
+              {benefits.map((benefit, index) => <div key={index} className="flex items-center gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm">
                   <CheckCircle className="w-6 h-6 text-success flex-shrink-0" />
                   <span className="text-lg">{benefit}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
 
             <div className="text-center mt-12">
@@ -273,14 +230,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
               <img src={lawgicLogo} alt="Lawgic" className="w-8 h-8" />
               <span className="text-lg font-semibold">Lawgic</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              © 2024 Lawgic. Simplifying legal compliance for Indian businesses.
-            </p>
+            <p className="text-sm text-muted-foreground">© 2025 Lawgic. Simplifying legal compliance for Indian businesses.</p>
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default LandingPage;
